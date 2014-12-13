@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regly", "Regly\Regly.csproj", "{0D8E842C-20CF-4ADC-848B-BBE7095086D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regly.Test", "Regly.Test\Regly.Test.csproj", "{47B9668E-7696-4D2D-889E-0E7CFFD8C422}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4953CFBC-D273-4CF4-94DD-967EB4DFF859}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D8E842C-20CF-4ADC-848B-BBE7095086D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8E842C-20CF-4ADC-848B-BBE7095086D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8E842C-20CF-4ADC-848B-BBE7095086D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8E842C-20CF-4ADC-848B-BBE7095086D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47B9668E-7696-4D2D-889E-0E7CFFD8C422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47B9668E-7696-4D2D-889E-0E7CFFD8C422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47B9668E-7696-4D2D-889E-0E7CFFD8C422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47B9668E-7696-4D2D-889E-0E7CFFD8C422}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
