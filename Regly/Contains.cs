@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Regly
 {
     public class Contains : IContains
     {
-        // TODO: Rename to ShouldContain
         private readonly string sourceString;
         private readonly string word;
         private bool caseSensitive;
@@ -44,9 +44,21 @@ namespace Regly
 
         public bool Execute()
         {
-            CompareOptions compateOptions = caseSensitive ? CompareOptions.Ordinal : CompareOptions.OrdinalIgnoreCase;
+            RegexOptions options = !caseSensitive ? RegexOptions.IgnoreCase : RegexOptions.None;
 
-            return CultureInfo.CurrentCulture.CompareInfo.IndexOf(sourceString, word, compateOptions) >= 0;
+            var regex = new Regex(GetExpression(), options);
+
+            return regex.IsMatch(this.sourceString);
+        }
+
+        public string GetExpression()
+        {
+            return word;
+        }
+
+        public IContains AnyDigit()
+        {
+            throw new NotImplementedException();
         }
     }
 }
