@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Regly
+namespace Regly.Interfaces
 {
     public interface IContains : IExpression
     {

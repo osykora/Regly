@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Regly.Interfaces;
+using System;
 
 namespace Regly
 {
