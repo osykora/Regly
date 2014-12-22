@@ -12,54 +12,15 @@ namespace Regly
     public class Contains : IContains
     {
         private readonly string sourceString;
-        private readonly string word;
-        private bool caseSensitive;
 
-        public Contains(string sourceString, string word)
+        public Contains(string sourceString)
         {
-            //TODO code contracts
-            if (word == null)
-            {
-                throw new ArgumentNullException("word");
-            }
-
             this.sourceString = sourceString;
-            this.word = word;
-
-            this.CaseSensitive();
         }
 
-        public IContains CaseInsensitive()
+        public IContainsDigit AnyDigit()
         {
-            caseSensitive = false;
-
-            return this;
-        }
-
-        public IContains CaseSensitive()
-        {
-            caseSensitive = true;
-
-            return this;
-        }
-
-        public bool Execute()
-        {
-            RegexOptions options = !caseSensitive ? RegexOptions.IgnoreCase : RegexOptions.None;
-
-            var regex = new Regex(GetExpression(), options);
-
-            return regex.IsMatch(this.sourceString);
-        }
-
-        public string GetExpression()
-        {
-            return word;
-        }
-
-        public IContains AnyDigit()
-        {
-            throw new NotImplementedException();
+            return new ContainsDigit(this.sourceString, @"\d");
         }
     }
 }

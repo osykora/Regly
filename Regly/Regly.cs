@@ -3,7 +3,7 @@ using System;
 
 namespace Regly
 {
-    public class Regly
+    public class Regly : IRegly
     {
         private readonly string sourceString;
 
@@ -14,9 +14,14 @@ namespace Regly
             this.sourceString = sourceString;
         }
 
-        public IContains Contains(string word)
+        public IContainsValue Contains(string exactValue)
         {
-            return new Contains(sourceString, word);
+            return new ContainsValue(sourceString, exactValue);
+        }
+
+        public IContains Contains()
+        {
+            return new Contains(sourceString);
         }
 
         public ISplitBy SplitBy(string expression)
