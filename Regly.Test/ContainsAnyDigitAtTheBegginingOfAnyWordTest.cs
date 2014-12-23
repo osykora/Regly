@@ -9,7 +9,7 @@ namespace Regly.Test
     {
         protected override IExecutableExpression CreateReglyForTest(IRegly regly)
         {
-            return regly.Contains().AnyDigit().AtTheBeggining().AtTheBegginingOf().Any().Word();
+            return regly.Contains().AnyDigit().AtTheBegginingOf().Any().Word();
         }
 
         protected override string GetExpectedExpressionForTest()

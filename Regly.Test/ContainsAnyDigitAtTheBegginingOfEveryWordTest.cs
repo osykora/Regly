@@ -10,7 +10,7 @@ namespace Regly.Test
     {
         protected override IExecutableExpression CreateReglyForTest(IRegly regly)
         {
-            return regly.Contains().AnyDigit().AtTheBeggining().AtTheBegginingOf().Every().Word();
+            return regly.Contains().AnyDigit().AtTheBegginingOf().Every().Word();
         }
 
         protected override string GetExpectedExpressionForTest()
