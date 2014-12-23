@@ -3,11 +3,27 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Shouldly;
 using Regly.Interfaces;
+using Xunit.Extensions;
 
 namespace Regly.Test
 {
     public class ContainsAnyDigitTest : ContainsBaseTest
     {
+        protected override System.Collections.Generic.IEnumerable<string> GetInputStringsForTrueCase()
+        {
+            yield return "1";
+            yield return "1a";
+            yield return "a1";
+            yield return "First1 Second";
+            yield return "First Second2";
+        }
+
+        protected override System.Collections.Generic.IEnumerable<string> GetInputStringsForFalseCase()
+        {
+            yield return "Word";
+            yield return "No digit";
+        }
+
         protected override IExecutableExpression CreateReglyForTest(IRegly regly)
         {
             return regly.Contains().AnyDigit();
@@ -18,46 +34,10 @@ namespace Regly.Test
             return @"\d";
         }
 
-        [Fact]
-        public void GivenOne_ThenItShouldBeTrue()
+        [Theory, ClassData(typeof(ContainsAnyDigitTest))]
+        public void ItShouldBe(string inputString, bool expectedResult)
         {
-            ShouldBeTrue("1");
-        }
-
-        [Fact]
-        public void GivenWordWithDigitAtTheBeggining_ThenItShouldBeTrue()
-        {
-            ShouldBeTrue("1a");
-        }
-
-        [Fact]
-        public void GivenWordWithDigitAtSecondPosition_ThenItShouldBeTrue()
-        {
-            ShouldBeTrue("a1");
-        }
-
-        [Fact]
-        public void GivenTwoWordsWithDigitInTheFirstOne_ThenItShouldBeTrue()
-        {
-            ShouldBeTrue("First1 Second");
-        }
-
-        [Fact]
-        public void GivenTwoWordsWithDigitInTheSecondOne_ThenItShouldBeTrue()
-        {
-            ShouldBeTrue("First Second2");
-        }
-
-        [Fact]
-        public void GivenWordWithNoDigit_ThenItShouldBeFalse()
-        {
-            ShouldBeFalse("Word");
-        }
-
-        [Fact]
-        public void GivenTwoWordsWithNoGigit_ThenItShouldBeFalse()
-        {
-            ShouldBeFalse("No digit");
+            ShouldBe(inputString, expectedResult);
         }
     }
 }

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Regly.Interfaces
 {
-    public interface IContainsValue : IExecutableExpression, IPositionableValue, ICaseSensitive<IContainsValue>
+    public interface IPositionableDigit
     {
+        IContainsDigit AtTheBeggining();
+
+        IContainsQuantity AtTheBegginingOf();
     }
 }

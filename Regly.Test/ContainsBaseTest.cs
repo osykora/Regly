@@ -2,31 +2,53 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regly.Interfaces;
 using Shouldly;
+using System.Collections.Generic;
+using Xunit.Extensions;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace Regly.Test
 {
-    public abstract class ContainsBaseTest
+    public abstract class ContainsBaseTest : IEnumerable<object[]>
     {
         protected abstract IExecutableExpression CreateReglyForTest(IRegly regly);
 
         protected abstract string GetExpectedExpressionForTest();
 
-        protected void ShouldBeTrue(string inputString)
-        {
-            ShouldBe(inputString, true);
-        }
+        protected abstract IEnumerable<string> GetInputStringsForTrueCase();
 
-        protected void ShouldBeFalse(string inputString)
-        {
-            ShouldBe(inputString, false);
-        }
+        protected abstract IEnumerable<string> GetInputStringsForFalseCase();
 
-        private void ShouldBe(string inputString, bool expectedResult)
+        protected void ShouldBe(string inputString, bool expectedResult)
         {
             var regly = CreateReglyForTest(new Regly(inputString));
 
             regly.Execute().ShouldBe(expectedResult);
             regly.GetExpression().ShouldBe(GetExpectedExpressionForTest());
+        }
+
+        private IEnumerable<object[]> ConvertDataToEnumerator()
+        {
+            foreach (string item in GetInputStringsForTrueCase())
+            {
+                yield return new object[] { item, true };
+            }
+
+            foreach (string item in GetInputStringsForFalseCase())
+            {
+                yield return new object[] { item, false };
+            }
+        }
+
+        public IEnumerator<object[]> GetEnumerator()
+        {
+            return ConvertDataToEnumerator().GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

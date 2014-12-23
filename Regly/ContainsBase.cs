@@ -27,6 +27,13 @@ namespace Regly
             this.expression = expression;
         }
 
+        protected virtual bool ExecuteInternal()
+        {
+            var regex = new Regex(GetExpression(), GetRegexOptions());
+
+            return regex.IsMatch(this.sourceString);
+        }
+
         public string GetExpression()
         {
             return this.expression;
@@ -34,9 +41,7 @@ namespace Regly
 
         public bool Execute()
         {
-            var regex = new Regex(GetExpression(), GetRegexOptions());
-
-            return regex.IsMatch(this.sourceString);
+            return ExecuteInternal();
         }
     }
 }

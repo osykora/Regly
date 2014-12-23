@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Regly.Interfaces
 {
-    public interface IPositionable
+    public interface IPositionableValue
     {
         IContainsValue AtTheBeggining();
     }

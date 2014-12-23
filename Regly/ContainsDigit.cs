@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Regly
@@ -14,11 +15,18 @@ namespace Regly
         {
         }
 
-        public IContainsValue AtTheBeggining()
+        public IContainsDigit AtTheBeggining()
         {
             this.expression = "^" + this.expression;
 
-            return new ContainsValue(this.sourceString, this.expression);
+            return new ContainsDigit(this.sourceString, this.expression);
+        }
+
+        public IContainsQuantity AtTheBegginingOf()
+        {
+            this.expression = @"\b\d";
+
+            return new ContainsQuantity(this.sourceString, this.expression);
         }
     }
 }

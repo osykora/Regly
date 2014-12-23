@@ -52,16 +52,21 @@
   <ItemGroup>
     <Compile Include="ContainsBase.cs" />
     <Compile Include="ContainsDigit.cs" />
+    <Compile Include="ContainsEvery.cs" />
+    <Compile Include="ContainsQuantity.cs" />
     <Compile Include="ContainsValue.cs" />
     <Compile Include="Interfaces\ICaseSensitive.cs" />
     <Compile Include="Interfaces\IContains.cs" />
     <Compile Include="Contains.cs" />
     <Compile Include="Interfaces\IContainsDigit.cs" />
+    <Compile Include="Interfaces\IContainsEvery.cs" />
+    <Compile Include="Interfaces\IContainsQuantity.cs" />
     <Compile Include="Interfaces\IContainsValue.cs" />
     <Compile Include="Interfaces\IExecutable.cs" />
     <Compile Include="Interfaces\IExecutableExpression.cs" />
     <Compile Include="Interfaces\IExpression.cs" />
     <Compile Include="Interfaces\IPositionable.cs" />
+    <Compile Include="Interfaces\IPositionableDigit.cs" />
     <Compile Include="Interfaces\IRegly.cs" />
     <Compile Include="Interfaces\ISplitBy.cs" />
     <Compile Include="Regly.cs" />
