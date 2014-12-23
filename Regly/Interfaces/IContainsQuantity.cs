@@ -8,5 +8,7 @@ namespace Regly.Interfaces
     public interface IContainsQuantity
     {
         IContainsEvery Every();
+
+        IContainsAny Any();
     }
 }

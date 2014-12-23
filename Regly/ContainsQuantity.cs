@@ -18,5 +18,11 @@ namespace Regly
         {
             return new ContainsEvery(this.sourceString, this.expression);
         }
+
+
+        public IContainsAny Any()
+        {
+            return new ContainsAny(this.sourceString, this.expression);
+        }
     }
 }

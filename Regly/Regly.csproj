@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainsAny.cs" />
     <Compile Include="ContainsBase.cs" />
     <Compile Include="ContainsDigit.cs" />
     <Compile Include="ContainsEvery.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Interfaces\ICaseSensitive.cs" />
     <Compile Include="Interfaces\IContains.cs" />
     <Compile Include="Contains.cs" />
+    <Compile Include="Interfaces\IContainsAny.cs" />
     <Compile Include="Interfaces\IContainsDigit.cs" />
     <Compile Include="Interfaces\IContainsEvery.cs" />
     <Compile Include="Interfaces\IContainsQuantity.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Interfaces\IPositionable.cs" />
     <Compile Include="Interfaces\IPositionableDigit.cs" />
     <Compile Include="Interfaces\IRegly.cs" />
+    <Compile Include="Interfaces\ISingularQuantity.cs" />
     <Compile Include="Interfaces\ISplitBy.cs" />
     <Compile Include="Regly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
