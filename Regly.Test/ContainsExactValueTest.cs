@@ -19,7 +19,6 @@ namespace Regly.Test
             var regly = new Regly("Word").Contains("Word");
 
             regly.Execute().ShouldBe(true);
-            regly.GetExpression().ShouldBe("Word");
         }
 
         [Fact]
@@ -28,7 +27,6 @@ namespace Regly.Test
             var regly = new Regly("Word").Contains("Different");
 
             regly.Execute().ShouldBe(false);
-            regly.GetExpression().ShouldBe("Different");
         }
 
         [Fact]
@@ -37,7 +35,6 @@ namespace Regly.Test
             var regly = new Regly("Two words").Contains("Two");
 
             regly.Execute().ShouldBe(true);
-            regly.GetExpression().ShouldBe("Two");
         }
 
         [Fact]
@@ -46,7 +43,6 @@ namespace Regly.Test
             var regly = new Regly("Two words").Contains("words");
 
             regly.Execute().ShouldBe(true);
-            regly.GetExpression().ShouldBe("words");
         }
 
         [Fact]
@@ -55,7 +51,6 @@ namespace Regly.Test
             var regly = new Regly("Two words").Contains("Two words");
 
             regly.Execute().ShouldBe(true);
-            regly.GetExpression().ShouldBe("Two words");
         }
 
         [Fact]
@@ -64,7 +59,6 @@ namespace Regly.Test
             var regly = new Regly("words two").Contains("Two words");
 
             regly.Execute().ShouldBe(false);
-            regly.GetExpression().ShouldBe("Two words");
         }
 
         [Fact]
@@ -73,7 +67,6 @@ namespace Regly.Test
             var regly = new Regly("UPPER").Contains("upper").CaseInsensitive();
 
             regly.Execute().ShouldBe(true);
-            regly.GetExpression().ShouldBe("upper");
         }
 
         [Fact]
@@ -82,7 +75,6 @@ namespace Regly.Test
             var regly = new Regly("UPPER").Contains("upper").CaseSensitive();
 
             regly.Execute().ShouldBe(false);
-            regly.GetExpression().ShouldBe("upper");
         }
 
         [Fact]
@@ -91,7 +83,6 @@ namespace Regly.Test
             var regly = new Regly("UPPER").Contains("upper");
 
             regly.Execute().ShouldBe(false);
-            regly.GetExpression().ShouldBe("upper");
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Regly
 
         public IContainsDigit AnyDigit()
         {
-            return new ContainsDigit(this.sourceString, @"\d");
+            return new ContainsDigit(this.sourceString, new Stack<Expression>(new[] { Expression.AnyDigit }));
         }
     }
 }

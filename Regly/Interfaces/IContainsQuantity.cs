@@ -10,5 +10,9 @@ namespace Regly.Interfaces
         IContainsEvery Every();
 
         IContainsAny Any();
+
+        IContainsFirst First();
+
+        IContainsFirstN First(int count);
     }
 }

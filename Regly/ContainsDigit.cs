@@ -10,23 +10,23 @@ namespace Regly
 {
     public class ContainsDigit : ContainsBase, IContainsDigit
     {
-        public ContainsDigit(string sourceString, string expression)
-            : base(sourceString, expression)
+        public ContainsDigit(string sourceString, Stack<Expression> expressionCallStack)
+            : base(sourceString, expressionCallStack)
         {
         }
 
         public IContainsDigit AtTheBeggining()
         {
-            this.expression = "^" + this.expression;
+            expressionCallStack.Push(Expression.AtTheBeggining);
 
-            return new ContainsDigit(this.sourceString, this.expression);
+            return new ContainsDigit(this.sourceString, expressionCallStack);
         }
 
         public IContainsQuantity AtTheBegginingOf()
         {
-            this.expression = @"\b\d";
+            expressionCallStack.Push(Expression.AtTheBegginingOf);
 
-            return new ContainsQuantity(this.sourceString, this.expression);
+            return new ContainsQuantity(this.sourceString, expressionCallStack);
         }
     }
 }

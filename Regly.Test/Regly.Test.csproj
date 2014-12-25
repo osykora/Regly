@@ -72,6 +72,8 @@
     <Compile Include="ContainsBaseTest.cs" />
     <Compile Include="ContainsAnyDigitAtTheBegginingOfEveryWordTest.cs" />
     <Compile Include="ContainsAnyDigitAtTheBegginingOfAnyWordTest.cs" />
+    <Compile Include="ContainsAnyDigitAtTheBegginingOfFirstWordTest.cs" />
+    <Compile Include="ContainsAnyDigitAtTheBegginingOfFirstNWordsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

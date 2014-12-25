@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Regly
 {
-    public class ContainsEvery : ContainsBase, IContainsEvery
+    public class ContainsFirst : ContainsBase, IContainsFirst
     {
-        public ContainsEvery(string sourceString, Stack<Expression> expressionCallStack)
+        public ContainsFirst(string sourceString, Stack<Expression> expressionCallStack)
             : base(sourceString, expressionCallStack)
         {
         }

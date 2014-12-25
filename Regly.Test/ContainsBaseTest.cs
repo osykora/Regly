@@ -25,7 +25,6 @@ namespace Regly.Test
             var regly = CreateReglyForTest(new Regly(inputString));
 
             regly.Execute().ShouldBe(expectedResult);
-            regly.GetExpression().ShouldBe(GetExpectedExpressionForTest());
         }
 
         private IEnumerable<object[]> ConvertDataToEnumerator()

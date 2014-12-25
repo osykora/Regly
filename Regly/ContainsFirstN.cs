@@ -3,21 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Regly
 {
-    public class ContainsEvery : ContainsBase, IContainsEvery
+    public class ContainsFirstN : ContainsBase, IContainsFirstN
     {
-        public ContainsEvery(string sourceString, Stack<Expression> expressionCallStack)
+        public ContainsFirstN(string sourceString, Stack<Expression> expressionCallStack)
             : base(sourceString, expressionCallStack)
         {
         }
 
-        public IExecutableExpression Word()
+        public IExecutableExpression Words()
         {
-            expressionCallStack.Push(Expression.Word);
+            expressionCallStack.Push(Expression.Words);
 
             return this;
         }

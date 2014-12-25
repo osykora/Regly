@@ -9,39 +9,84 @@ namespace Regly
 {
     public abstract class ContainsBase
     {
-        protected string sourceString, expression;
+        protected string sourceString;
+        protected Stack<Expression> expressionCallStack;
 
         protected virtual RegexOptions GetRegexOptions()
         {
             return RegexOptions.None;
         }
 
-        protected ContainsBase(string sourceString, string expression)
+        protected ContainsBase(string sourceString, Stack<Expression> expressionCallStack)
         {
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-
             this.sourceString = sourceString;
-            this.expression = expression;
+            this.expressionCallStack = expressionCallStack;
         }
 
-        protected virtual bool ExecuteInternal()
+        private bool IsStackLike(params ExpressionType[] expressionTypes)
         {
-            var regex = new Regex(GetExpression(), GetRegexOptions());
+            var queue = expressionCallStack.Reverse().Select(expression => expression.Type).ToArray();
 
-            return regex.IsMatch(this.sourceString);
-        }
-
-        public string GetExpression()
-        {
-            return this.expression;
+            return queue.SequenceEqual(expressionTypes);
         }
 
         public bool Execute()
         {
-            return ExecuteInternal();
+            if (IsStackLike(ExpressionType.ExactValue))
+            {
+                Expression expression = expressionCallStack.Pop();
+                var regex = new Regex(expression.Value, this.GetRegexOptions());
+
+                return regex.IsMatch(this.sourceString);
+            }
+            else if (IsStackLike(ExpressionType.AnyDigit))
+            {
+                var regex = new Regex(@"\d", this.GetRegexOptions());
+
+                return regex.IsMatch(this.sourceString);
+            }
+            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBeggining) ||
+                IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.First, ExpressionType.Word))
+            {
+                var regex = new Regex(@"^\d", this.GetRegexOptions());
+
+                return regex.IsMatch(this.sourceString);
+            }
+            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Every, ExpressionType.Word))
+            {
+                var regex = new Regex(@"\b\d", this.GetRegexOptions());
+
+                var matches = regex.Matches(this.sourceString);
+
+                return matches.Count == CountOfWordsIn(sourceString);
+            }
+            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Any, ExpressionType.Word))
+            {
+                var regex = new Regex(@"\b\d", this.GetRegexOptions());
+
+                return regex.IsMatch(this.sourceString);
+            }
+            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.FirstN, ExpressionType.Words))
+            {
+                var count = expressionCallStack.Skip(1).First().Count;
+                var expressionBuilder = new StringBuilder(@"^\d");
+
+                for (int i = 0; i < count - 1; i++)
+                {
+                    expressionBuilder.Append(@"\w*\s\d");
+                }
+
+                var regex = new Regex(expressionBuilder.ToString(), this.GetRegexOptions());
+
+                return regex.IsMatch(this.sourceString);
+            }
+
+            throw new NotImplementedException();
+        }
+
+        private int CountOfWordsIn(string sourceString)
+        {
+            return sourceString.Split(' ').Count();
         }
     }
 }

@@ -17,8 +17,8 @@ namespace Regly
             return !caseSensitive ? RegexOptions.IgnoreCase : RegexOptions.None;
         }
 
-        public ContainsValue(string sourceString, string expression)
-            : base(sourceString, expression)
+        public ContainsValue(string sourceString, Stack<Expression> expressionCallStack)
+            : base(sourceString, expressionCallStack)
         {
             this.CaseSensitive();
         }
@@ -39,7 +39,7 @@ namespace Regly
 
         public IContainsValue AtTheBeggining()
         {
-            this.expression = "^" + this.expression;
+            expressionCallStack.Push(Expression.AtTheBeggining);
 
             return this;
         }

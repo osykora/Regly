@@ -1,5 +1,6 @@
 ﻿using Regly.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Regly
 {
@@ -16,7 +17,9 @@ namespace Regly
 
         public IContainsValue Contains(string exactValue)
         {
-            return new ContainsValue(sourceString, exactValue);
+            if (exactValue == null) throw new ArgumentNullException("exactValue");
+
+            return new ContainsValue(sourceString, new Stack<Expression>(new[] { new Expression(ExpressionType.ExactValue, exactValue) }));
         }
 
         public IContains Contains()

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Regly.Interfaces
 {
-    public interface IExecutableExpression : IExecutable
+    public interface IPluralQuantity
     {
+        IExecutableExpression Words();
     }
 }

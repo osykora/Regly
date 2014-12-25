@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Regly.Interfaces
 {
-    public interface IExecutableExpression : IExecutable
+    public interface IContainsFirst : IExecutableExpression, ISingularQuantity
     {
     }
 }
