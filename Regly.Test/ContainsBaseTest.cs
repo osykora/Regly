@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regly.Interfaces;
 using Shouldly;
 using System.Collections.Generic;

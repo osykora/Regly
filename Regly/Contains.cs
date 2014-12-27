@@ -1,11 +1,5 @@
-﻿using Regly.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Regly.Interfaces;
 
 namespace Regly
 {
@@ -20,7 +14,7 @@ namespace Regly
 
         public IContainsDigit AnyDigit()
         {
-            return new ContainsDigit(this.sourceString, new Stack<Expression>(new[] { Expression.AnyDigit }));
+            return new ContainsDigit(sourceString, new Stack<Expression>(new[] {Expression.AnyDigit}));
         }
     }
 }

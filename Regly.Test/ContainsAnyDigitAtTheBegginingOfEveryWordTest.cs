@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 using Regly.Interfaces;
 using Xunit.Extensions;

@@ -1,30 +1,27 @@
-﻿using Regly.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Regly.Interfaces;
 
 namespace Regly
 {
     public class SplitBy : ISplitBy
     {
-        string sourceString, expression;
-
-        public IEnumerable<string> Execute()
-        {
-            if (string.IsNullOrEmpty(expression))
-            {
-                return new[] { sourceString };
-            }
-            return Regex.Split(sourceString, expression);
-        }
+        private readonly string expression;
+        private readonly string sourceString;
 
         public SplitBy(string sourceString, string expression)
         {
             this.sourceString = sourceString;
             this.expression = expression;
+        }
+
+        public IEnumerable<string> Execute()
+        {
+            if (string.IsNullOrEmpty(expression))
+            {
+                return new[] {sourceString};
+            }
+            return Regex.Split(sourceString, expression);
         }
     }
 }

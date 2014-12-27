@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Regly
+﻿namespace Regly
 {
     public class Expression
     {
-        public ExpressionType Type { get; set; }
-
-        public string Value { get; set; }
-
-        public int Count { get; set; }
-
         public Expression(ExpressionType type)
             : this(type, string.Empty)
         {
@@ -21,15 +9,21 @@ namespace Regly
 
         public Expression(ExpressionType type, string value)
         {
-            this.Type = type;
-            this.Value = value;
+            Type = type;
+            Value = value;
         }
 
         public Expression(ExpressionType type, int count)
         {
-            this.Type = type;
-            this.Count = count;
+            Type = type;
+            Count = count;
         }
+
+        public ExpressionType Type { get; set; }
+
+        public string Value { get; set; }
+
+        public int Count { get; set; }
 
         public static Expression AnyDigit
         {

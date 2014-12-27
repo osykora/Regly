@@ -1,9 +1,5 @@
-﻿using Regly.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Regly.Interfaces;
 
 namespace Regly
 {
@@ -18,7 +14,7 @@ namespace Regly
         {
             expressionCallStack.Push(Expression.Every);
 
-            return new ContainsEvery(this.sourceString, expressionCallStack);
+            return new ContainsEvery(sourceString, expressionCallStack);
         }
 
 
@@ -26,7 +22,7 @@ namespace Regly
         {
             expressionCallStack.Push(Expression.Any);
 
-            return new ContainsAny(this.sourceString, expressionCallStack);
+            return new ContainsAny(sourceString, expressionCallStack);
         }
 
 
@@ -34,7 +30,7 @@ namespace Regly
         {
             expressionCallStack.Push(Expression.First);
 
-            return new ContainsFirst(this.sourceString, expressionCallStack);
+            return new ContainsFirst(sourceString, expressionCallStack);
         }
 
 
@@ -42,7 +38,7 @@ namespace Regly
         {
             expressionCallStack.Push(new Expression(ExpressionType.FirstN, count));
 
-            return new ContainsFirstN(this.sourceString, expressionCallStack);
+            return new ContainsFirstN(sourceString, expressionCallStack);
         }
     }
 }

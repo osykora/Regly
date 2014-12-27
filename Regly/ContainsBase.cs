@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Regly
 {
     public abstract class ContainsBase
     {
-        protected string sourceString;
         protected Stack<Expression> expressionCallStack;
-
-        protected virtual RegexOptions GetRegexOptions()
-        {
-            return RegexOptions.None;
-        }
+        protected string sourceString;
 
         protected ContainsBase(string sourceString, Stack<Expression> expressionCallStack)
         {
@@ -23,9 +17,14 @@ namespace Regly
             this.expressionCallStack = expressionCallStack;
         }
 
+        protected virtual RegexOptions GetRegexOptions()
+        {
+            return RegexOptions.None;
+        }
+
         private bool IsStackLike(params ExpressionType[] expressionTypes)
         {
-            var queue = expressionCallStack.Reverse().Select(expression => expression.Type).ToArray();
+            ExpressionType[] queue = expressionCallStack.Reverse().Select(expression => expression.Type).ToArray();
 
             return queue.SequenceEqual(expressionTypes);
         }
@@ -35,40 +34,44 @@ namespace Regly
             if (IsStackLike(ExpressionType.ExactValue))
             {
                 Expression expression = expressionCallStack.Pop();
-                var regex = new Regex(expression.Value, this.GetRegexOptions());
+                var regex = new Regex(expression.Value, GetRegexOptions());
 
-                return regex.IsMatch(this.sourceString);
+                return regex.IsMatch(sourceString);
             }
-            else if (IsStackLike(ExpressionType.AnyDigit))
+            if (IsStackLike(ExpressionType.AnyDigit))
             {
-                var regex = new Regex(@"\d", this.GetRegexOptions());
+                var regex = new Regex(@"\d", GetRegexOptions());
 
-                return regex.IsMatch(this.sourceString);
+                return regex.IsMatch(sourceString);
             }
-            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBeggining) ||
-                IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.First, ExpressionType.Word))
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBeggining) ||
+                IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.First,
+                    ExpressionType.Word))
             {
-                var regex = new Regex(@"^\d", this.GetRegexOptions());
+                var regex = new Regex(@"^\d", GetRegexOptions());
 
-                return regex.IsMatch(this.sourceString);
+                return regex.IsMatch(sourceString);
             }
-            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Every, ExpressionType.Word))
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Every,
+                ExpressionType.Word))
             {
-                var regex = new Regex(@"\b\d", this.GetRegexOptions());
+                var regex = new Regex(@"\b\d", GetRegexOptions());
 
-                var matches = regex.Matches(this.sourceString);
+                MatchCollection matches = regex.Matches(sourceString);
 
                 return matches.Count == CountOfWordsIn(sourceString);
             }
-            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Any, ExpressionType.Word))
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Any,
+                ExpressionType.Word))
             {
-                var regex = new Regex(@"\b\d", this.GetRegexOptions());
+                var regex = new Regex(@"\b\d", GetRegexOptions());
 
-                return regex.IsMatch(this.sourceString);
+                return regex.IsMatch(sourceString);
             }
-            else if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.FirstN, ExpressionType.Words))
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.FirstN,
+                ExpressionType.Words))
             {
-                var count = expressionCallStack.Skip(1).First().Count;
+                int count = expressionCallStack.Skip(1).First().Count;
                 var expressionBuilder = new StringBuilder(@"^\d");
 
                 for (int i = 0; i < count - 1; i++)
@@ -76,9 +79,9 @@ namespace Regly
                     expressionBuilder.Append(@"\w*\s\d");
                 }
 
-                var regex = new Regex(expressionBuilder.ToString(), this.GetRegexOptions());
+                var regex = new Regex(expressionBuilder.ToString(), GetRegexOptions());
 
-                return regex.IsMatch(this.sourceString);
+                return regex.IsMatch(sourceString);
             }
 
             throw new NotImplementedException();

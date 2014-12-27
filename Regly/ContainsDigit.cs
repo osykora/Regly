@@ -1,10 +1,5 @@
-﻿using Regly.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Regly.Interfaces;
 
 namespace Regly
 {
@@ -19,14 +14,14 @@ namespace Regly
         {
             expressionCallStack.Push(Expression.AtTheBeggining);
 
-            return new ContainsDigit(this.sourceString, expressionCallStack);
+            return new ContainsDigit(sourceString, expressionCallStack);
         }
 
         public IContainsQuantity AtTheBegginingOf()
         {
             expressionCallStack.Push(Expression.AtTheBegginingOf);
 
-            return new ContainsQuantity(this.sourceString, expressionCallStack);
+            return new ContainsQuantity(sourceString, expressionCallStack);
         }
     }
 }

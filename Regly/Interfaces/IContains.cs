@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Regly.Interfaces
+﻿namespace Regly.Interfaces
 {
     public interface IContains
     {

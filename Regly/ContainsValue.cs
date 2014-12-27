@@ -1,10 +1,6 @@
-﻿using Regly.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Regly.Interfaces;
 
 namespace Regly
 {
@@ -12,15 +8,10 @@ namespace Regly
     {
         private bool caseSensitive;
 
-        protected override RegexOptions GetRegexOptions()
-        {
-            return !caseSensitive ? RegexOptions.IgnoreCase : RegexOptions.None;
-        }
-
         public ContainsValue(string sourceString, Stack<Expression> expressionCallStack)
             : base(sourceString, expressionCallStack)
         {
-            this.CaseSensitive();
+            CaseSensitive();
         }
 
         public IContainsValue CaseInsensitive()
@@ -42,6 +33,11 @@ namespace Regly
             expressionCallStack.Push(Expression.AtTheBeggining);
 
             return this;
+        }
+
+        protected override RegexOptions GetRegexOptions()
+        {
+            return !caseSensitive ? RegexOptions.IgnoreCase : RegexOptions.None;
         }
     }
 }
