@@ -1,5 +1,4 @@
-﻿using System;
-using Xunit;
+﻿using System.Collections.Generic;
 using Regly.Interfaces;
 using Xunit.Extensions;
 
@@ -17,7 +16,7 @@ namespace Regly.Test
             return @"\b\d";
         }
 
-        protected override System.Collections.Generic.IEnumerable<string> GetInputStringsForTrueCase()
+        protected override IEnumerable<string> GetInputStringsForTrueCase()
         {
             yield return "1";
             yield return "12";
@@ -25,7 +24,7 @@ namespace Regly.Test
             yield return "1First 2Second";
         }
 
-        protected override System.Collections.Generic.IEnumerable<string> GetInputStringsForFalseCase()
+        protected override IEnumerable<string> GetInputStringsForFalseCase()
         {
             yield return "a1";
             yield return "1First Second";
@@ -35,7 +34,7 @@ namespace Regly.Test
             yield return "No digit";
         }
 
-        [Theory, ClassData(typeof(ContainsAnyDigitAtTheBegginingOfEveryWordTest))]
+        [Theory, ClassData(typeof (ContainsAnyDigitAtTheBegginingOfEveryWordTest))]
         public void ItShouldBe(string inputString, bool expectedResult)
         {
             ShouldBe(inputString, expectedResult);
