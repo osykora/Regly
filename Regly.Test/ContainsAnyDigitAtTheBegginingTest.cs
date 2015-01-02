@@ -1,7 +1,4 @@
-﻿using System;
-using Xunit;
-using Shouldly;
-using Regly.Interfaces;
+﻿using Regly.Interfaces;
 using Xunit.Extensions;
 
 namespace Regly.Test
@@ -11,11 +8,6 @@ namespace Regly.Test
         protected override IExecutableExpression CreateReglyForTest(IRegly regly)
         {
             return regly.Contains().AnyDigit().AtTheBeggining();
-        }
-
-        protected override string GetExpectedExpressionForTest()
-        {
-            return @"^\d";
         }
 
         protected override System.Collections.Generic.IEnumerable<string> GetInputStringsForTrueCase()

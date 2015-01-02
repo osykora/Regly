@@ -1,7 +1,4 @@
-﻿using System;
-using Xunit;
-using Shouldly;
-using Regly.Interfaces;
+﻿using Regly.Interfaces;
 using Xunit.Extensions;
 
 namespace Regly.Test
@@ -26,11 +23,6 @@ namespace Regly.Test
         protected override IExecutableExpression CreateReglyForTest(IRegly regly)
         {
             return regly.Contains().AnyDigit();
-        }
-
-        protected override string GetExpectedExpressionForTest()
-        {
-            return @"\d";
         }
 
         [Theory, ClassData(typeof(ContainsAnyDigitTest))]

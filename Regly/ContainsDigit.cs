@@ -23,5 +23,12 @@ namespace Regly
 
             return new ContainsQuantity(sourceString, expressionCallStack);
         }
+
+        public IContainsQuantity AnywhereIn()
+        {
+            expressionCallStack.Push(Expression.AnywhereIn);
+
+            return new ContainsQuantity(sourceString, expressionCallStack);
+        }
     }
 }

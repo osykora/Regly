@@ -40,6 +40,11 @@
             get { return new Expression(ExpressionType.AtTheBegginingOf); }
         }
 
+        public static Expression AnywhereIn
+        {
+            get { return new Expression(ExpressionType.AnywhereIn); }
+        }
+
         public static Expression Any
         {
             get { return new Expression(ExpressionType.Any); }

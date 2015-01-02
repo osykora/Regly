@@ -11,11 +11,6 @@ namespace Regly.Test
             return regly.Contains().AnyDigit().AtTheBegginingOf().Any().Word();
         }
 
-        protected override string GetExpectedExpressionForTest()
-        {
-            return @"\b\d";
-        }
-
         protected override IEnumerable<string> GetInputStringsForTrueCase()
         {
             yield return "1";

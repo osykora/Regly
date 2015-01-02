@@ -1,19 +1,12 @@
-﻿using System;
-using Regly.Interfaces;
+﻿using Regly.Interfaces;
 using Shouldly;
 using System.Collections.Generic;
-using Xunit.Extensions;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
 
 namespace Regly.Test
 {
     public abstract class ContainsBaseTest : IEnumerable<object[]>
     {
         protected abstract IExecutableExpression CreateReglyForTest(IRegly regly);
-
-        protected abstract string GetExpectedExpressionForTest();
 
         protected abstract IEnumerable<string> GetInputStringsForTrueCase();
 

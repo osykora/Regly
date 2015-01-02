@@ -5,5 +5,7 @@
         IContainsDigit AtTheBeggining();
 
         IContainsQuantity AtTheBegginingOf();
+
+        IContainsQuantity AnywhereIn();
     }
 }

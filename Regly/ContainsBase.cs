@@ -38,7 +38,9 @@ namespace Regly
 
                 return regex.IsMatch(sourceString);
             }
-            if (IsStackLike(ExpressionType.AnyDigit))
+            if (IsStackLike(ExpressionType.AnyDigit)
+                || IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Any,
+                ExpressionType.Word))
             {
                 var regex = new Regex(@"\d", GetRegexOptions());
 
@@ -81,6 +83,14 @@ namespace Regly
 
                 var regex = new Regex(expressionBuilder.ToString(), GetRegexOptions());
 
+                return regex.IsMatch(sourceString);
+            }
+
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Every,
+                ExpressionType.Word))
+            {
+                var regex = new Regex(@"(\b\w*?\d.*?){" + CountOfWordsIn(sourceString) + "}", GetRegexOptions());
+                
                 return regex.IsMatch(sourceString);
             }
 

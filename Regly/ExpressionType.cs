@@ -11,6 +11,7 @@
         FirstN,
         Every,
         Word,
-        Words
+        Words,
+        AnywhereIn
     }
 }
