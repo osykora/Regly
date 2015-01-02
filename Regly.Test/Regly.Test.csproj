@@ -70,6 +70,7 @@
     <Compile Include="ContainsAnyDigitAtTheBegginingOfFirstNWordsTest.cs" />
     <Compile Include="ContainsAnyDigitAnywhereInAnyWordTest.cs" />
     <Compile Include="ContainsAnyDigitAnywhereInEveryWordTest.cs" />
+    <Compile Include="ContainsAnyDigitAnywhereInFirstWordTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

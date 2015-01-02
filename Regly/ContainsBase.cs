@@ -8,6 +8,15 @@ namespace Regly
 {
     public abstract class ContainsBase
     {
+        private const string AnyDigit = @"\d";
+        private const string BegginingOfString = @"^";
+        private const string WordBoundary = @"\b";
+        private const string WordCharacter = @"\w";
+        private const string Whitespace = @"\s";
+        private const string RepeatAnyTimes = "*";
+        private const string RepeatAnyTimesFewestPossible = "*?";
+        private const string AnyCharacter = ".";
+
         protected Stack<Expression> expressionCallStack;
         protected string sourceString;
 
@@ -42,7 +51,7 @@ namespace Regly
                 || IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Any,
                 ExpressionType.Word))
             {
-                var regex = new Regex(@"\d", GetRegexOptions());
+                var regex = new Regex(AnyDigit, GetRegexOptions());
 
                 return regex.IsMatch(sourceString);
             }
@@ -50,14 +59,14 @@ namespace Regly
                 IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.First,
                     ExpressionType.Word))
             {
-                var regex = new Regex(@"^\d", GetRegexOptions());
+                var regex = new Regex(BegginingOfString + AnyDigit, GetRegexOptions());
 
                 return regex.IsMatch(sourceString);
             }
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Every,
                 ExpressionType.Word))
             {
-                var regex = new Regex(@"\b\d", GetRegexOptions());
+                var regex = new Regex(WordBoundary + AnyDigit, GetRegexOptions());
 
                 MatchCollection matches = regex.Matches(sourceString);
 
@@ -66,7 +75,7 @@ namespace Regly
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Any,
                 ExpressionType.Word))
             {
-                var regex = new Regex(@"\b\d", GetRegexOptions());
+                var regex = new Regex(WordBoundary + AnyDigit, GetRegexOptions());
 
                 return regex.IsMatch(sourceString);
             }
@@ -74,11 +83,11 @@ namespace Regly
                 ExpressionType.Words))
             {
                 int count = expressionCallStack.Skip(1).First().Count;
-                var expressionBuilder = new StringBuilder(@"^\d");
+                var expressionBuilder = new StringBuilder(BegginingOfString + AnyDigit);
 
                 for (int i = 0; i < count - 1; i++)
                 {
-                    expressionBuilder.Append(@"\w*\s\d");
+                    expressionBuilder.Append(WordCharacter + RepeatAnyTimes + Whitespace + AnyDigit);
                 }
 
                 var regex = new Regex(expressionBuilder.ToString(), GetRegexOptions());
@@ -89,8 +98,16 @@ namespace Regly
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Every,
                 ExpressionType.Word))
             {
-                var regex = new Regex(@"(\b\w*?\d.*?){" + CountOfWordsIn(sourceString) + "}", GetRegexOptions());
-                
+                var regex = new Regex("(" + WordBoundary + WordCharacter + RepeatAnyTimesFewestPossible + AnyDigit + AnyCharacter + RepeatAnyTimesFewestPossible + "){" + CountOfWordsIn(sourceString) + "}", GetRegexOptions());
+
+                return regex.IsMatch(sourceString);
+            }
+
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.First,
+                ExpressionType.Word))
+            {
+                var regex = new Regex(BegginingOfString + WordBoundary + WordCharacter + RepeatAnyTimesFewestPossible + AnyDigit + WordCharacter + RepeatAnyTimesFewestPossible + WordBoundary);
+
                 return regex.IsMatch(sourceString);
             }
 
