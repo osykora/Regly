@@ -1,7 +1,4 @@
-﻿using System;
-using Regly.Interfaces;
-using Xunit.Extensions;
-using Xunit;
+﻿using Xunit.Extensions;
 using Shouldly;
 
 namespace Regly.Test

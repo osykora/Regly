@@ -1,7 +1,6 @@
 ﻿using System;
 using Shouldly;
 using Xunit;
-using System.Globalization;
 
 namespace Regly.Test
 {
