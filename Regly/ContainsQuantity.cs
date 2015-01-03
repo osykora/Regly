@@ -40,5 +40,12 @@ namespace Regly
 
             return new ContainsFirstN(sourceString, expressionCallStack);
         }
+
+        public IContainsLast Last()
+        {
+            expressionCallStack.Push(Expression.Last);
+
+            return new ContainsLast(sourceString, expressionCallStack);
+        }
     }
 }

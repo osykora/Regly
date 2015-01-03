@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainsFirstN.cs" />
+    <Compile Include="ContainsLast.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="ExpressionType.cs" />
     <Compile Include="ContainsAny.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Interfaces\IContainsEvery.cs" />
     <Compile Include="Interfaces\IContainsFirst.cs" />
     <Compile Include="Interfaces\IContainsFirstN.cs" />
+    <Compile Include="Interfaces\IContainsLast.cs" />
     <Compile Include="Interfaces\IContainsQuantity.cs" />
     <Compile Include="Interfaces\IContainsValue.cs" />
     <Compile Include="Interfaces\IExecutable.cs" />

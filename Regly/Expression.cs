@@ -69,5 +69,10 @@
         {
             get { return new Expression(ExpressionType.Words); }
         }
+
+        public static Expression Last
+        {
+            get { return new Expression(ExpressionType.Last); }
+        }
     }
 }

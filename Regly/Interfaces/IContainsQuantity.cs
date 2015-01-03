@@ -9,5 +9,7 @@
         IContainsFirst First();
 
         IContainsFirstN First(int count);
+
+        IContainsLast Last();
     }
 }

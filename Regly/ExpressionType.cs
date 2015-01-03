@@ -12,6 +12,7 @@
         Every,
         Word,
         Words,
-        AnywhereIn
+        AnywhereIn,
+        Last
     }
 }

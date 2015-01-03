@@ -8,6 +8,7 @@ namespace Regly
     {
         private const string AnyDigit = @"\d";
         private const string BegginingOfString = @"^";
+        private const string EndOfString = @"$";
         private const string WordBoundary = @"\b";
         private const string WordCharacter = @"\w";
         private const string Whitespace = @"\s";
@@ -93,6 +94,14 @@ namespace Regly
                 ExpressionType.Words))
             {
                 regularExpression = AnyDigitAnywhereInFirstNWords(GetCountFromCallstack());
+            }
+
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Last,
+                ExpressionType.Word))
+            {
+                regularExpression = WordBoundary + WordCharacter +
+                                    RepeatAnyTimesFewestPossible + AnyDigit + WordCharacter +
+                                    RepeatAnyTimesFewestPossible + WordBoundary + EndOfString;
             }
 
             var regex = new Regex(regularExpression, GetRegexOptions());
