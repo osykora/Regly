@@ -108,9 +108,28 @@ namespace Regly
                 regularExpression = AnyDigitAnywhereInLastNWords(GetCountFromCallstack());
             }
 
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Last,
+                ExpressionType.Word))
+            {
+                regularExpression = AnyDigitAtTheBegginingOfLastNWords(1);
+            }
+
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.LastN,
+                ExpressionType.Words))
+            {
+                regularExpression = AnyDigitAtTheBegginingOfLastNWords(GetCountFromCallstack());
+            }
+
             var regex = new Regex(regularExpression, GetRegexOptions());
 
             return regex.IsMatch(sourceString);
+        }
+
+        private static string AnyDigitAtTheBegginingOfLastNWords(int count)
+        {
+            return "(" + WordBoundary + AnyDigit + WordCharacter +
+                                RepeatAnyTimesFewestPossible + WordBoundary + Whitespace +
+                                RepeatAnyTimesFewestPossible + "){" + count + "}" + EndOfString;
         }
 
         private static string AnyDigitAnywhereInLastNWords(int count)

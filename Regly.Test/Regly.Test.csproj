@@ -60,6 +60,8 @@
     <Compile Include="ContainsAnyDigitAnywhereInfFirstNWordsTest.cs" />
     <Compile Include="ContainsAnyDigitAnywhereInLastNWordTest.cs" />
     <Compile Include="ContainsAnyDigitAnywhereInLastWordTest.cs" />
+    <Compile Include="ContainsAnyDigitAtTheBegginingOfLastNWordsTest.cs" />
+    <Compile Include="ContainsAnyDigitAtTheBegginingOfLastWordTest.cs" />
     <Compile Include="ReglyConstructorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContainsExactValueTest.cs" />
