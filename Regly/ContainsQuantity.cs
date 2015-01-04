@@ -47,5 +47,12 @@ namespace Regly
 
             return new ContainsLast(sourceString, expressionCallStack);
         }
+
+        public IContainsLastN Last(int count)
+        {
+            expressionCallStack.Push(new Expression(ExpressionType.LastN, count));
+
+            return new ContainsLastN(sourceString, expressionCallStack);
+        }
     }
 }

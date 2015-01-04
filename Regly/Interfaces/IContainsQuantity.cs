@@ -11,5 +11,7 @@
         IContainsFirstN First(int count);
 
         IContainsLast Last();
+
+        IContainsLastN Last(int count);
     }
 }

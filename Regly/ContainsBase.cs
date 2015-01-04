@@ -99,9 +99,13 @@ namespace Regly
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Last,
                 ExpressionType.Word))
             {
-                regularExpression = WordBoundary + WordCharacter +
-                                    RepeatAnyTimesFewestPossible + AnyDigit + WordCharacter +
-                                    RepeatAnyTimesFewestPossible + WordBoundary + EndOfString;
+                regularExpression = AnyDigitAnywhereInLastNWords(1);
+            }
+
+            if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.LastN,
+                ExpressionType.Words))
+            {
+                regularExpression = AnyDigitAnywhereInLastNWords(GetCountFromCallstack());
             }
 
             var regex = new Regex(regularExpression, GetRegexOptions());
@@ -109,7 +113,15 @@ namespace Regly
             return regex.IsMatch(sourceString);
         }
 
-        private string AnyDigitAnywhereInFirstNWords(int count)
+        private static string AnyDigitAnywhereInLastNWords(int count)
+        {
+            return "(" + WordBoundary + WordCharacter +
+                                RepeatAnyTimesFewestPossible + AnyDigit + WordCharacter +
+                                RepeatAnyTimesFewestPossible + WordBoundary + Whitespace +
+                                RepeatAnyTimesFewestPossible + "){" + count + "}" + EndOfString;
+        }
+
+        private static string AnyDigitAnywhereInFirstNWords(int count)
         {
             return BegginingOfString + "(" + WordBoundary + WordCharacter +
                                 RepeatAnyTimesFewestPossible + AnyDigit + WordCharacter +
@@ -117,7 +129,7 @@ namespace Regly
                                 RepeatAnyTimesFewestPossible + "){" + count + "}";
         }
 
-        private string AnyDigitAtTheBegginingOfFirstNWords(int count)
+        private static string AnyDigitAtTheBegginingOfFirstNWords(int count)
         {
             return BegginingOfString + "(" + WordBoundary + AnyDigit + WordCharacter +
                                 RepeatAnyTimesFewestPossible + WordBoundary + Whitespace +
@@ -129,7 +141,7 @@ namespace Regly
             return expressionCallStack.Skip(1).First().Count;
         }
 
-        private int CountOfWordsIn(string sourceString)
+        private static int CountOfWordsIn(string sourceString)
         {
             return sourceString.Split(' ').Count();
         }

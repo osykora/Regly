@@ -13,6 +13,7 @@
         Word,
         Words,
         AnywhereIn,
-        Last
+        Last,
+        LastN
     }
 }
