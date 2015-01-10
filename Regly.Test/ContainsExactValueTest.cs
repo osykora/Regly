@@ -1,6 +1,7 @@
 ﻿using System;
 using Xunit;
 using Shouldly;
+using Xunit.Extensions;
 
 namespace Regly.Test
 {
@@ -10,54 +11,6 @@ namespace Regly.Test
         public void GivenOneWord_WhenSearchForNull_ThenArgumentNullExceptionShouldBeThrown()
         {
             Should.Throw<ArgumentNullException>(() => new Regly("Word").Contains(null));
-        }
-
-        [Fact]
-        public void GivenOneWord_WhenSearchTheSameWord_ThenTheWordShouldBeFound()
-        {
-            var regly = new Regly("Word").Contains("Word");
-
-            regly.Execute().ShouldBe(true);
-        }
-
-        [Fact]
-        public void GivenOneWord_WhenSearchForDifferentWord_ThenTheWordShouldNotBeFound()
-        {
-            var regly = new Regly("Word").Contains("Different");
-
-            regly.Execute().ShouldBe(false);
-        }
-
-        [Fact]
-        public void GivenTwoWords_WhenSearchForFirstOfThem_ThenTheWordShouldBeFound()
-        {
-            var regly = new Regly("Two words").Contains("Two");
-
-            regly.Execute().ShouldBe(true);
-        }
-
-        [Fact]
-        public void GivenTwoWords_WhenSearchForTheSecondOne_ThenTheWordShouldBeFound()
-        {
-            var regly = new Regly("Two words").Contains("words");
-
-            regly.Execute().ShouldBe(true);
-        }
-
-        [Fact]
-        public void GivenTwoWordsPhrase_WhenSearchForTheWholePhrase_ThenItShouldBeFound()
-        {
-            var regly = new Regly("Two words").Contains("Two words");
-
-            regly.Execute().ShouldBe(true);
-        }
-
-        [Fact]
-        public void GivenTwoWordsPhrase_WhenSearchForTheWholeReversePhrase_ThenItShouldNotBeFound()
-        {
-            var regly = new Regly("words two").Contains("Two words");
-
-            regly.Execute().ShouldBe(false);
         }
 
         [Fact]
@@ -76,10 +29,25 @@ namespace Regly.Test
             regly.Execute().ShouldBe(false);
         }
 
-        [Fact]
-        public void GivenUpperCaseWordAndNotSpecifiedSearchType_WhenSearchForForIt_ThenItSearchCaseSensitiveAndTheWordShouldNotBeFound()
+        [Theory]
+        [InlineData("Word", "Word")]
+        [InlineData("Two words", "Two")]
+        [InlineData("Two words", "words")]
+        [InlineData("Two words", "Two words")]
+        public void ItShouldBeTrue(string inputString, string contains)
         {
-            var regly = new Regly("UPPER").Contains("upper");
+            var regly = new Regly(inputString).Contains(contains);
+
+            regly.Execute().ShouldBe(true);
+        }
+
+        [Theory]
+        [InlineData("Word", "Different")]
+        [InlineData("words two", "Two words")]
+        [InlineData("UPPER", "upper")]
+        public void ItShouldBeFalse(string inputString, string contains)
+        {
+            var regly = new Regly(inputString).Contains(contains);
 
             regly.Execute().ShouldBe(false);
         }
