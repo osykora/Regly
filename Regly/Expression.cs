@@ -74,5 +74,10 @@
         {
             get { return new Expression(ExpressionType.Last); }
         }
+
+        public static Expression ButNot
+        {
+            get { return new Expression(ExpressionType.ButNot); }
+        }
     }
 }

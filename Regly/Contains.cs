@@ -3,18 +3,23 @@ using Regly.Interfaces;
 
 namespace Regly
 {
-    public class Contains : IContains
+    public class Contains : ContainsBase, IContains
     {
-        private readonly string sourceString;
-
         public Contains(string sourceString)
+            : base(sourceString, new Stack<Expression>())
         {
-            this.sourceString = sourceString;
+        }
+
+        public Contains(string sourceString, Stack<Expression> expressionCallStack)
+            : base(sourceString, expressionCallStack)
+        {
         }
 
         public IContainsDigit AnyDigit()
         {
-            return new ContainsDigit(sourceString, new Stack<Expression>(new[] {Expression.AnyDigit}));
+            ExpressionCallStack.Push(Expression.AnyDigit);
+
+            return new ContainsDigit(SourceString, ExpressionCallStack);
         }
     }
 }

@@ -55,6 +55,16 @@ namespace Regly
                                     GetNotContainsExactValueExpression(notContainsValue);
             }
 
+            if (IsStackLike(ExpressionType.ExactValue, ExpressionType.ButNot, ExpressionType.AnyDigit))
+            {
+                ExpressionCallStack.Pop();
+                ExpressionCallStack.Pop();
+                string containsValue = ExpressionCallStack.Pop().Value;
+
+                regularExpression = GetContainsExactValueExpression(containsValue) +
+                                    GetNotContainsExactValueExpression(AnyDigit);
+            }
+
             if (IsStackLike(ExpressionType.AnyDigit)
                 || IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Any,
                 ExpressionType.Word))

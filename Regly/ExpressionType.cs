@@ -15,6 +15,7 @@
         AnywhereIn,
         Last,
         LastN,
-        ButNotValue
+        ButNotValue,
+        ButNot
     }
 }

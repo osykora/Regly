@@ -38,6 +38,13 @@ namespace Regly
             return this;
         }
 
+        public IContains ButNot()
+        {
+            ExpressionCallStack.Push(Expression.ButNot);
+
+            return new Contains(SourceString, ExpressionCallStack);
+        }
+
         public IContainsValue AtTheBeggining()
         {
             ExpressionCallStack.Push(Expression.AtTheBeggining);
