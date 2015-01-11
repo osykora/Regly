@@ -12,47 +12,47 @@ namespace Regly
 
         public IContainsEvery Every()
         {
-            expressionCallStack.Push(Expression.Every);
+            ExpressionCallStack.Push(Expression.Every);
 
-            return new ContainsEvery(sourceString, expressionCallStack);
+            return new ContainsEvery(SourceString, ExpressionCallStack);
         }
 
 
         public IContainsAny Any()
         {
-            expressionCallStack.Push(Expression.Any);
+            ExpressionCallStack.Push(Expression.Any);
 
-            return new ContainsAny(sourceString, expressionCallStack);
+            return new ContainsAny(SourceString, ExpressionCallStack);
         }
 
 
         public IContainsFirst First()
         {
-            expressionCallStack.Push(Expression.First);
+            ExpressionCallStack.Push(Expression.First);
 
-            return new ContainsFirst(sourceString, expressionCallStack);
+            return new ContainsFirst(SourceString, ExpressionCallStack);
         }
 
 
         public IContainsFirstN First(int count)
         {
-            expressionCallStack.Push(new Expression(ExpressionType.FirstN, count));
+            ExpressionCallStack.Push(new Expression(ExpressionType.FirstN, count));
 
-            return new ContainsFirstN(sourceString, expressionCallStack);
+            return new ContainsFirstN(SourceString, ExpressionCallStack);
         }
 
         public IContainsLast Last()
         {
-            expressionCallStack.Push(Expression.Last);
+            ExpressionCallStack.Push(Expression.Last);
 
-            return new ContainsLast(sourceString, expressionCallStack);
+            return new ContainsLast(SourceString, ExpressionCallStack);
         }
 
         public IContainsLastN Last(int count)
         {
-            expressionCallStack.Push(new Expression(ExpressionType.LastN, count));
+            ExpressionCallStack.Push(new Expression(ExpressionType.LastN, count));
 
-            return new ContainsLastN(sourceString, expressionCallStack);
+            return new ContainsLastN(SourceString, ExpressionCallStack);
         }
     }
 }

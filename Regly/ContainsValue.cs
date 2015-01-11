@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Regly.Interfaces;
 
@@ -28,9 +29,18 @@ namespace Regly
             return this;
         }
 
+        public IContainsValue ButNot(string value)
+        {
+            if (value == null) throw new ArgumentNullException("value");
+
+            ExpressionCallStack.Push(new Expression(ExpressionType.ButNotValue, value));
+
+            return this;
+        }
+
         public IContainsValue AtTheBeggining()
         {
-            expressionCallStack.Push(Expression.AtTheBeggining);
+            ExpressionCallStack.Push(Expression.AtTheBeggining);
 
             return this;
         }

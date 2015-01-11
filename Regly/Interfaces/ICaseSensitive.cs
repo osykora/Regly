@@ -1,6 +1,6 @@
 ﻿namespace Regly.Interfaces
 {
-    public interface ICaseSensitive<T>
+    public interface ICaseSensitive<out T>
     {
         T CaseInsensitive();
 

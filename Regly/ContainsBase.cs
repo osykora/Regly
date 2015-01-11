@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Regly.Extensions;
 
 namespace Regly
 {
@@ -13,26 +14,25 @@ namespace Regly
         private const string WordCharacter = @"\w";
         private const string Whitespace = @"\s";
         private const string RepeatAnyTimesFewestPossible = "*?";
+        private const string PositiveLookAheadTemplate = "(?={0})";
+        private const string NegativeLookAheadTemplate = "(?!{0})";
+        private const string MatchEmptyString = BegginingOfString + EndOfString;
+        private const string MatchNothing = "";
+        private const string AnyCharacter = ".";
+        private const string AnyCharacterManyTimes = AnyCharacter + RepeatAnyTimesFewestPossible;
 
-        protected Stack<Expression> expressionCallStack;
-        protected string sourceString;
+        protected Stack<Expression> ExpressionCallStack;
+        protected string SourceString;
 
         protected ContainsBase(string sourceString, Stack<Expression> expressionCallStack)
         {
-            this.sourceString = sourceString;
-            this.expressionCallStack = expressionCallStack;
+            SourceString = sourceString;
+            ExpressionCallStack = expressionCallStack;
         }
 
         protected virtual RegexOptions GetRegexOptions()
         {
             return RegexOptions.None;
-        }
-
-        private bool IsStackLike(params ExpressionType[] expressionTypes)
-        {
-            ExpressionType[] queue = expressionCallStack.Reverse().Select(expression => expression.Type).ToArray();
-
-            return queue.SequenceEqual(expressionTypes);
         }
 
         public bool Execute()
@@ -41,9 +41,18 @@ namespace Regly
 
             if (IsStackLike(ExpressionType.ExactValue))
             {
-                Expression expression = expressionCallStack.Pop();
+                Expression expression = ExpressionCallStack.Pop();
 
-                regularExpression = expression.Value;
+                regularExpression = GetContainsExactValueExpression(expression.Value);
+            }
+
+            if (IsStackLike(ExpressionType.ExactValue, ExpressionType.ButNotValue))
+            {
+                string notContainsValue = ExpressionCallStack.Pop().Value;
+                string containsValue = ExpressionCallStack.Pop().Value;
+
+                regularExpression = GetContainsExactValueExpression(containsValue) +
+                                    GetNotContainsExactValueExpression(notContainsValue);
             }
 
             if (IsStackLike(ExpressionType.AnyDigit)
@@ -63,7 +72,7 @@ namespace Regly
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Every,
                 ExpressionType.Word))
             {
-                regularExpression = AnyDigitAtTheBegginingOfFirstNWords(CountOfWordsIn(sourceString));
+                regularExpression = AnyDigitAtTheBegginingOfFirstNWords(CountOfWordsIn(SourceString));
             }
 
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AtTheBegginingOf, ExpressionType.Any,
@@ -81,7 +90,7 @@ namespace Regly
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.Every,
                 ExpressionType.Word))
             {
-                regularExpression = AnyDigitAnywhereInFirstNWords(CountOfWordsIn(sourceString));
+                regularExpression = AnyDigitAnywhereInFirstNWords(CountOfWordsIn(SourceString));
             }
 
             if (IsStackLike(ExpressionType.AnyDigit, ExpressionType.AnywhereIn, ExpressionType.First,
@@ -122,7 +131,34 @@ namespace Regly
 
             var regex = new Regex(regularExpression, GetRegexOptions());
 
-            return regex.IsMatch(sourceString);
+            return regex.IsMatch(SourceString);
+        }
+
+        private bool IsStackLike(params ExpressionType[] expressionTypes)
+        {
+            ExpressionType[] queue = ExpressionCallStack.Reverse().Select(expression => expression.Type).ToArray();
+
+            return queue.SequenceEqual(expressionTypes);
+        }
+
+        private string GetContainsExactValueExpression(string exactValue)
+        {
+            if (exactValue.HasValue())
+            {
+                return BegginingOfString + PositiveLookAheadTemplate.FillBy(AnyCharacterManyTimes + exactValue);
+            }
+
+            return MatchEmptyString;
+        }
+
+        private string GetNotContainsExactValueExpression(string exactValue)
+        {
+            if (exactValue.HasValue())
+            {
+                return NegativeLookAheadTemplate.FillBy(AnyCharacterManyTimes + exactValue);
+            }
+
+            return MatchNothing;
         }
 
         private static string AnyDigitAtTheBegginingOfLastNWords(int count)
@@ -157,7 +193,7 @@ namespace Regly
 
         private int GetCountFromCallstack()
         {
-            return expressionCallStack.Skip(1).First().Count;
+            return ExpressionCallStack.Skip(1).First().Count;
         }
 
         private static int CountOfWordsIn(string sourceString)

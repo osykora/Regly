@@ -12,23 +12,23 @@ namespace Regly
 
         public IContainsDigit AtTheBeggining()
         {
-            expressionCallStack.Push(Expression.AtTheBeggining);
+            ExpressionCallStack.Push(Expression.AtTheBeggining);
 
-            return new ContainsDigit(sourceString, expressionCallStack);
+            return new ContainsDigit(SourceString, ExpressionCallStack);
         }
 
         public IContainsQuantity AtTheBegginingOf()
         {
-            expressionCallStack.Push(Expression.AtTheBegginingOf);
+            ExpressionCallStack.Push(Expression.AtTheBegginingOf);
 
-            return new ContainsQuantity(sourceString, expressionCallStack);
+            return new ContainsQuantity(SourceString, ExpressionCallStack);
         }
 
         public IContainsQuantity AnywhereIn()
         {
-            expressionCallStack.Push(Expression.AnywhereIn);
+            ExpressionCallStack.Push(Expression.AnywhereIn);
 
-            return new ContainsQuantity(sourceString, expressionCallStack);
+            return new ContainsQuantity(SourceString, ExpressionCallStack);
         }
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="ContainsFirst.cs" />
     <Compile Include="ContainsQuantity.cs" />
     <Compile Include="ContainsValue.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\ICaseSensitive.cs" />
     <Compile Include="Interfaces\IContains.cs" />
     <Compile Include="Contains.cs" />

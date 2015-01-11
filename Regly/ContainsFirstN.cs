@@ -12,7 +12,7 @@ namespace Regly
 
         public IExecutableExpression Words()
         {
-            expressionCallStack.Push(Expression.Words);
+            ExpressionCallStack.Push(Expression.Words);
 
             return this;
         }

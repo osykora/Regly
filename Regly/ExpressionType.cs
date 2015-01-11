@@ -14,6 +14,7 @@
         Words,
         AnywhereIn,
         Last,
-        LastN
+        LastN,
+        ButNotValue
     }
 }
